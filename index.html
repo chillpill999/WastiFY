@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WastiFY - Smart Waste Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2ecc71;
+            --primary-dark: #27ae60;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --dark: #1d1d1f;
+            --light: #f5f5f7;
+            --gray: #86868b;
+            --gray-light: #d2d2d7;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background-color: #fff;
+            color: var(--dark);
+            line-height: 1.47059;
+            font-weight: 400;
+            letter-spacing: -0.022em;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+        
+        /* Header Styles */
+        header {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+        
+        .header-scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 44px;
+            padding: 0 22px;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            color: var(--dark);
+            font-size: 21px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+        
+        .logo-icon {
+            color: var(--primary);
+            font-size: 24px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 24px;
+        }
+        
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-size: 12px;
+            font-weight: 400;
+            transition: color 0.3s;
+            position: relative;
+        }
+        
+        nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+        
+        nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        .auth-buttons button {
+            padding: 6px 16px;
+            border-radius: 980px;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 400;
+            transition: all 0.3s;
+        }
+        
+        .login-btn {
+            background: transparent;
+            color: var(--dark);
+            margin-right: 8px;
+        }
+        
+        .register-btn {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .auth-buttons button:hover {
+            opacity: 0.8;
+            transform: scale(1.04);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding-top: 120px;
+            padding-bottom: 80px;
+            text-align: center;
+            background: linear-gradient(to bottom, #f5f5f7, #fff);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero h2 {
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.07143;
+            letter-spacing: -0.005em;
+            margin-bottom: 16px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease forwards;
+        }
+        
+        .hero p {
+            font-size: 28px;
+            line-height: 1.10722;
+            font-weight: 400;
+            letter-spacing: .004em;
+            margin-bottom: 32px;
+            color: var(--gray);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease 0.2s forwards;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 980px;
+            font-size: 17px;
+            font-weight: 400;
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease 0.4s forwards;
+        }
+        
+        .cta-button:hover {
+            background: var(--primary-dark);
+            transform: scale(1.04);
+        }
+        
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 120px 0;
+            background: #fff;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        
+        .section-title h2 {
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: 0em;
+            margin-bottom: 16px;
+        }
+        
+        .section-title p {
+            font-size: 21px;
+            line-height: 1.19048;
+            font-weight: 400;
+            letter-spacing: .011em;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+        
+        .feature-card {
+            background: #f5f5f7;
+            border-radius: 18px;
+            padding: 40px;
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .feature-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 24px;
+        }
+        
+        .feature-card h3 {
+            font-size: 24px;
+            font-weight: 600;
+            line-height: 1.16667;
+            letter-spacing: .009em;
+            margin-bottom: 16px;
+        }
+        
+        .feature-card p {
+            font-size: 17px;
+            line-height: 1.47059;
+            font-weight: 400;
+            letter-spacing: -.022em;
+            color: var(--gray);
+        }
+        
+        /* Dashboard Preview */
+        .dashboard-preview {
+            padding: 120px 0;
+            background: #f5f5f7;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dashboard-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .dashboard-content {
+            flex: 1;
+            padding-right: 40px;
+        }
+        
+        .dashboard-content h2 {
+            font-size: 40px;
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: 0em;
+            margin-bottom: 16px;
+        }
+        
+        .dashboard-content p {
+            font-size: 21px;
+            line-height: 1.19048;
+            font-weight: 400;
+            letter-spacing: .011em;
+            color: var(--gray);
+            margin-bottom: 32px;
+        }
+        
+        .dashboard-visual {
+            flex: 1;
+            position: relative;
+            height: 400px;
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .dashboard-tabs {
+            display: flex;
+            padding: 16px 24px 0;
+            border-bottom: 1px solid var(--gray-light);
+        }
+        
+        .dashboard-tab {
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--gray);
+            cursor: pointer;
+            transition: color 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+        
+        .dashboard-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .dashboard-content-area {
+            padding: 24px;
+            height: calc(100% - 57px);
+        }
+        
+        .dashboard-card {
+            background: #f5f5f7;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+        
+        .dashboard-card h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .dashboard-card p {
+            font-size: 14px;
+            color: var(--gray);
+            margin-bottom: 0;
+        }
+        
+        /* How It Works */
+        .how-it-works {
+            padding: 120px 0;
+            background: #fff;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 80px;
+        }
+        
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 0 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s;
+        }
+        
+        .step.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 auto 24px;
+            transition: transform 0.3s;
+        }
+        
+        .step:hover .step-number {
+            transform: scale(1.1);
+        }
+        
+        .step h3 {
+            font-size: 21px;
+            font-weight: 600;
+            line-height: 1.19048;
+            letter-spacing: .011em;
+            margin-bottom: 16px;
+        }
+        
+        .step p {
+            font-size: 17px;
+            line-height: 1.47059;
+            font-weight: 400;
+            letter-spacing: -.022em;
+            color: var(--gray);
+        }
+        
+        /* Impact Section */
+        .impact {
+            padding: 120px 0;
+            background: #f5f5f7;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 80px;
+        }
+        
+        .stat {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.5s;
+        }
+        
+        .stat.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .stat-number {
+            font-size: 64px;
+            font-weight: 700;
+            line-height: 1.0625;
+            letter-spacing: -.009em;
+            color: var(--primary);
+            margin-bottom: 8px;
+            transition: transform 0.3s;
+        }
+        
+        .stat:hover .stat-number {
+            transform: scale(1.05);
+        }
+        
+        .stat-label {
+            font-size: 21px;
+            line-height: 1.19048;
+            font-weight: 400;
+            letter-spacing: .011em;
+            color: var(--gray);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 120px 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section h2 {
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.07143;
+            letter-spacing: -0.005em;
+            margin-bottom: 16px;
+        }
+        
+        .cta-section p {
+            font-size: 28px;
+            line-height: 1.10722;
+            font-weight: 400;
+            letter-spacing: .004em;
+            margin-bottom: 32px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button-light {
+            display: inline-block;
+            padding: 12px 24px;
+            background: white;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 980px;
+            font-size: 17px;
+            font-weight: 400;
+            transition: all 0.3s;
+        }
+        
+        .cta-button-light:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: scale(1.04);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--primary);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-column ul li a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+        
+        .footer-column ul li a:hover {
+            color: white;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 16px;
+            margin-top: 16px;
+        }
+        
+        .social-icons a {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: var(--primary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--gray-light);
+            font-size: 14px;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 18px;
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+        
+        .modal-header h2 {
+            font-size: 28px;
+            font-weight: 600;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--gray);
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: var(--dark);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--gray-light);
+            border-radius: 12px;
+            font-size: 17px;
+            transition: border-color 0.3s;
+        }
+        
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 834px) {
+            .container {
+                padding: 0 16px;
+            }
+            
+            .header-content {
+                padding: 0 16px;
+            }
+            
+            nav ul {
+                display: none;
+            }
+            
+            .hero h2 {
+                font-size: 40px;
+            }
+            
+            .hero p {
+                font-size: 21px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-container {
+                flex-direction: column;
+            }
+            
+            .dashboard-content {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+            
+            .steps {
+                flex-direction: column;
+            }
+            
+            .step {
+                margin-bottom: 40px;
+            }
+            
+            .stats {
+                flex-direction: column;
+            }
+            
+            .stat {
+                margin-bottom: 40px;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 414px) {
+            .hero h2 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+            }
+            
+            .section-title h2 {
+                font-size: 32px;
+            }
+            
+            .section-title p {
+                font-size: 18px;
+            }
+            
+            .feature-card {
+                padding: 24px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header id="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-recycle logo-icon"></i>
+                <h1>WastiFY</h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#dashboard">Dashboard</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#impact">Impact</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="login-btn" id="loginBtn">Login</button>
+                <button class="register-btn" id="registerBtn">Register</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>Transforming Waste Management Through Technology</h2>
+            <p>WastiFY promotes waste segregation at source, enables efficient collection, and creates sustainable employment opportunities.</p>
+            <a href="#" class="cta-button" id="heroCta">Get Started</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Innovative Features for Smart Waste Management</h2>
+                <p>WastiFY combines cutting-edge technology with practical solutions to revolutionize waste management</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-map-marker-alt feature-icon"></i>
+                    <h3>Waste Plant Locations</h3>
+                    <p>Interactive map showing nearby waste management facilities with real-time availability and capacity information.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-camera feature-icon"></i>
+                    <h3>Geo-Tagged Photos</h3>
+                    <p>Upload waste images with automatic location tagging for accurate tracking and monitoring.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-truck feature-icon"></i>
+                    <h3>Vehicle Tracking</h3>
+                    <p>Real-time GPS tracking of waste collection vehicles with optimized route planning.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-users feature-icon"></i>
+                    <h3>Employment Portal</h3>
+                    <p>Dedicated platform connecting waste pickers with employment opportunities in the recycling industry.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-home feature-icon"></i>
+                    <h3>Household Accounts</h3>
+                    <p>Personalized accounts for each household with waste tracking, pickup scheduling, and payment options.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-microchip feature-icon"></i>
+                    <h3>Smart IoT Dustbins</h3>
+                    <p>STM32-powered smart bins with sensors, camera modules, and GPS for efficient waste collection.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Preview -->
+    <section class="dashboard-preview" id="dashboard">
+        <div class="container">
+            <div class="dashboard-container">
+                <div class="dashboard-content">
+                    <h2>Smart Dashboard for Complete Waste Management</h2>
+                    <p>Our intuitive dashboard provides households and waste management professionals with all the tools needed for efficient waste management.</p>
+                    <a href="#" class="cta-button">Explore Dashboard</a>
+                </div>
+                <div class="dashboard-visual">
+                    <div class="dashboard-tabs">
+                        <div class="dashboard-tab active">Waste Tracking</div>
+                        <div class="dashboard-tab">Complaints</div>
+                        <div class="dashboard-tab">Employment</div>
+                        <div class="dashboard-tab">Payment</div>
+                    </div>
+                    <div class="dashboard-content-area">
+                        <div class="dashboard-card">
+                            <h4>Next Pickup Schedule</h4>
+                            <p>Organic waste pickup scheduled for Friday, 10:00 AM</p>
+                        </div>
+                        <div class="dashboard-card">
+                            <h4>Waste Segregation Status</h4>
+                            <p>Your segregation score: 92% (Excellent)</p>
+                        </div>
+                        <div class="dashboard-card">
+                            <h4>Recent Activity</h4>
+                            <p>Plastic recycling completed - 5 kg diverted from landfill</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>How WastiFY Transforms Waste Management</h2>
+                <p>Our seamless process ensures efficient waste management from source to recycling</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Segregate at Source</h3>
+                    <p>Households segregate waste into categories using our AI-powered classification system.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Schedule Pickup</h3>
+                    <p>Request pickup through our mobile app or website with flexible scheduling options.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Smart Collection</h3>
+                    <p>GPS-enabled vehicles with optimized routes collect waste from smart IoT dustbins.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Processing & Recycling</h3>
+                    <p>Waste is processed at our facilities for recycling, composting, and energy recovery.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section class="impact" id="impact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Environmental Impact</h2>
+                <p>WastiFY is making a significant difference in communities and the environment</p>
+            </div>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">15,000+</div>
+                    <div class="stat-label">Households Served</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">82%</div>
+                    <div class="stat-label">Waste Diverted from Landfills</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">350+</div>
+                    <div class="stat-label">Jobs Created</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Join the Waste Management Revolution</h2>
+            <p>Become part of the solution for a cleaner, greener future. Register your household today.</p>
+            <a href="#" class="cta-button-light">Register Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>WastiFY</h3>
+                    <p>Transforming waste management through technology, innovation, and community engagement.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Services</h3>
+                    <ul>
+                        <li><a href="#">Waste Segregation</a></li>
+                        <li><a href="#">Door-to-Door Collection</a></li>
+                        <li><a href="#">Composting</a></li>
+                        <li><a href="#">Recycling</a></li>
+                        <li><a href="#">Awareness Programs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Case Studies</a></li>
+                        <li><a href="#">Research Papers</a></li>
+                        <li><a href="#">API Documentation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Partnerships</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Media Inquiries</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 WastiFY. All rights reserved. | Ultimate Warriors - SIH 2025</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login to Your Account</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="form-group">
+                <label for="login-email">Email</label>
+                <input type="email" id="login-email" placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" placeholder="Enter your password">
+            </div>
+            <button class="btn" id="login-submit">Login</button>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create an Account</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="form-group">
+                <label for="register-name">Full Name</label>
+                <input type="text" id="register-name" placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label for="register-email">Email</label>
+                <input type="email" id="register-email" placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+                <label for="register-password">Password</label>
+                <input type="password" id="register-password" placeholder="Create a password">
+            </div>
+            <div class="form-group">
+                <label for="register-address">Address</label>
+                <textarea id="register-address" placeholder="Enter your address for waste collection"></textarea>
+            </div>
+            <button class="btn" id="register-submit">Register</button>
+        </div>
+    </div>
+
+    <script>
+        // Backend Simulation - Data storage
+        const backend = {
+            users: [
+                { id: 1, email: 'demo@wastify.com', password: 'password123', name: 'Demo User', address: '123 Green Street' }
+            ],
+            pickups: [],
+            complaints: [],
+            payments: [],
+            currentUser: null,
+            
+            // Authentication methods
+            login: function(email, password) {
+                const user = this.users.find(u => u.email === email && u.password === password);
+                if (user) {
+                    this.currentUser = user;
+                    return { success: true, user: { id: user.id, name: user.name, email: user.email } };
+                }
+                return { success: false, message: 'Invalid email or password' };
+            },
+            
+            register: function(name, email, password, address) {
+                const existingUser = this.users.find(u => u.email === email);
+                if (existingUser) {
+                    return { success: false, message: 'User already exists with this email' };
+                }
+                
+                const newUser = {
+                    id: this.users.length + 1,
+                    name,
+                    email,
+                    password,
+                    address
+                };
+                
+                this.users.push(newUser);
+                this.currentUser = newUser;
+                
+                return { success: true, user: { id: newUser.id, name: newUser.name, email: newUser.email } };
+            },
+            
+            // Waste pickup methods
+            schedulePickup: function(userId, date, wasteType, instructions) {
+                const pickup = {
+                    id: this.pickups.length + 1,
+                    userId,
+                    date,
+                    wasteType,
+                    instructions,
+                    status: 'scheduled',
+                    createdAt: new Date()
+                };
+                
+                this.pickups.push(pickup);
+                return { success: true, pickup };
+            },
+            
+            getUserPickups: function(userId) {
+                return this.pickups.filter(p => p.userId === userId);
+            },
+            
+            // Complaint methods
+            submitComplaint: function(userId, type, details) {
+                const complaint = {
+                    id: this.complaints.length + 1,
+                    userId,
+                    type,
+                    details,
+                    status: 'open',
+                    createdAt: new Date()
+                };
+                
+                this.complaints.push(complaint);
+                return { success: true, complaint };
+            },
+            
+            // Payment methods
+            makePayment: function(userId, amount, method) {
+                const payment = {
+                    id: this.payments.length + 1,
+                    userId,
+                    amount,
+                    method,
+                    status: 'completed',
+                    createdAt: new Date()
+                };
+                
+                this.payments.push(payment);
+                return { success: true, payment };
+            },
+            
+            getUserPayments: function(userId) {
+                return this.payments.filter(p => p.userId === userId);
+            }
+        };
+
+        // Frontend Application Logic
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const loginBtn = document.getElementById('loginBtn');
+            const registerBtn = document.getElementById('registerBtn');
+            const loginModal = document.getElementById('loginModal');
+            const registerModal = document.getElementById('registerModal');
+            const closeModalButtons = document.querySelectorAll('.close-modal');
+            const header = document.getElementById('header');
+            const featureCards = document.querySelectorAll('.feature-card');
+            const steps = document.querySelectorAll('.step');
+            const stats = document.querySelectorAll('.stat');
+            const loginSubmitBtn = document.getElementById('login-submit');
+            const registerSubmitBtn = document.getElementById('register-submit');
+            
+            // Header scroll effect
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    header.classList.add('header-scrolled');
+                } else {
+                    header.classList.remove('header-scrolled');
+                }
+                
+                // Animate elements on scroll
+                animateOnScroll(featureCards, 100);
+                animateOnScroll(steps, 150);
+                animateOnScroll(stats, 200);
+            });
+            
+            // Animate elements on scroll
+            function animateOnScroll(elements, offset = 100) {
+                elements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const windowHeight = window.innerHeight;
+                    
+                    if (elementTop < windowHeight - offset) {
+                        element.classList.add('visible');
+                    }
+                });
+            }
+            
+            // Modal functionality
+            function openModal(modal) {
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeModal(modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+            
+            loginBtn.addEventListener('click', () => openModal(loginModal));
+            registerBtn.addEventListener('click', () => openModal(registerModal));
+            
+            closeModalButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const modal = button.closest('.modal');
+                    closeModal(modal);
+                });
+            });
+            
+            window.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    closeModal(e.target);
+                }
+            });
+            
+            // Dashboard tabs
+            const dashboardTabs = document.querySelectorAll('.dashboard-tab');
+            
+            dashboardTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    dashboardTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                });
+            });
+            
+            // Authentication
+            loginSubmitBtn.addEventListener('click', () => {
+                const email = document.getElementById('login-email').value;
+                const password = document.getElementById('login-password').value;
+                
+                const result = backend.login(email, password);
+                
+                if (result.success) {
+                    alert(`Welcome back, ${result.user.name}!`);
+                    closeModal(loginModal);
+                    updateUIForLoggedInUser(result.user);
+                } else {
+                    alert(result.message);
+                }
+            });
+            
+            registerSubmitBtn.addEventListener('click', () => {
+                const name = document.getElementById('register-name').value;
+                const email = document.getElementById('register-email').value;
+                const password = document.getElementById('register-password').value;
+                const address = document.getElementById('register-address').value;
+                
+                const result = backend.register(name, email, password, address);
+                
+                if (result.success) {
+                    alert(`Welcome to WastiFY, ${result.user.name}!`);
+                    closeModal(registerModal);
+                    updateUIForLoggedInUser(result.user);
+                } else {
+                    alert(result.message);
+                }
+            });
+            
+            // Update UI for logged in user
+            function updateUIForLoggedInUser(user) {
+                const authButtons = document.querySelector('.auth-buttons');
+                authButtons.innerHTML = `
+                    <span style="margin-right: 16px;">Welcome, ${user.name}</span>
+                    <button class="login-btn" id="logoutBtn">Logout</button>
+                `;
+                
+                document.getElementById('logoutBtn').addEventListener('click', () => {
+                    backend.currentUser = null;
+                    location.reload();
+                });
+            }
+            
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // CTA button actions
+            document.querySelectorAll('.cta-button, .cta-button-light').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    openModal(registerModal);
+                });
+            });
+            
+            // Initialize animations
+            animateOnScroll(featureCards, 100);
+            animateOnScroll(steps, 150);
+            animateOnScroll(stats, 200);
+        });
+    </script>
+</body>
+</html>
